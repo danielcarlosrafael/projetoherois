@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Heróis</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app" class="container">
+        <div class="jumbotron">
+            <h1>Heróis</h1>
+        </div>
+        <hr>
+        <div class="jumbotron">
+            <h3>Busque seu Herói</h3>
+            <br>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-10">
+                        <input id="inputbusca" type="text" class="form-control">
+                    </div>
+                    <div class="col-md-1">
+                        <button onclick="busca()" class="btn btn-primary">Pesquisar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div :id="'divid' + hero.id" class="col-md-2 thumb" v-for="hero in herois">
+                    <a :href="hero.url"><img class="img-responsive" :src="hero.img" :title="hero.nome"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                herois: [
+                    {
+                        id: '1',
+                        nome: 'Capitão América',
+                        img: 'imgs/capitao.png',
+                        url: 'capitao.html'
+                    },
+                    {
+                        id: '2', 
+                        nome: 'Homem de Ferro',
+                        img: 'imgs/homemdeferro.jpg',
+                        url: 'homemdeferro.html'
+                    },
+                    {
+                        id: '3',
+                        nome: 'Hulk',
+                        img: 'imgs/hulk.jpg',
+                        url: 'hulk.html'
+                    }
+                ]
+            }
+        })
+
+        function busca()
+        {
+            let valorInput = document.getElementById('inputbusca').value;
+
+            for(let heroi of vm.herois){
+
+                let hero = heroi.nome.toUpperCase();
+                let inpu = valorInput.toUpperCase();
+
+                console.log(hero + ' = ' + inpu);
+                
+                if(!hero.match(inpu)){
+                    let variavel = document.getElementById('divid' + heroi.id);
+                    variavel.style.display = 'none';
+                }else{
+                    let variavel = document.getElementById('divid' + heroi.id);
+                    variavel.style.display = 'block';
+                }
+            }
+            
+        }
+
+    </script>
+</body>
+
+</html>
